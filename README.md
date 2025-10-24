@@ -2,6 +2,12 @@
 
 Un programme Python de vision par ordinateur pour suivre et prédire la position de la balle dans le jeu des 3 gobelets (shell game).
 
+## 📚 Documentation Rapide / Quick Links
+
+- **[🚀 Quick Start Guide](QUICKSTART.md)** - Get started in 5 minutes / Commencez en 5 minutes
+- **[📖 Usage Examples](USAGE_EXAMPLES.md)** - Code examples and best practices / Exemples et bonnes pratiques
+- **[🎮 Demo Script](demo.py)** - Run a synthetic video demo / Démo avec vidéo synthétique
+
 ## 🎯 Fonctionnalités
 
 - **Capture d'écran en temps réel** : Capture une région spécifique de l'écran
@@ -65,6 +71,11 @@ python advanced_tracker.py
    - `3` : Marquer la balle sous le gobelet 3
    - `R` : Réinitialiser le tracking
    - `Q` : Quitter l'application
+
+## 🎥 Vidéo de Référence / Reference Video
+
+Voir la vidéo d'exemple du jeu des 3 gobelets:
+https://github.com/user-attachments/assets/1f9d1d2c-efec-4073-b17b-f29ff46973be
 
 ## 🎮 Comment ça marche
 
