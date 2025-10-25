@@ -38,7 +38,38 @@ pip install -r requirements.txt
 
 ## 💻 Utilisation
 
-### Extracteur de Frames Vidéo (Nouveau!)
+### Enregistreur d'Écran (Nouveau!)
+
+Enregistrez une région sélectionnée de l'écran et exportez en vidéo MP4 :
+
+```bash
+# Démarrer l'enregistreur d'écran (sélection de région interactive)
+python screen_recorder.py
+
+# Enregistrer avec un fichier de sortie personnalisé
+python screen_recorder.py -o mon_enregistrement.mp4
+
+# Enregistrer à 60 FPS
+python screen_recorder.py --fps 60
+
+# Exécuter une démo
+python screen_recorder_demo.py
+```
+
+**Contrôles pendant l'enregistrement :**
+- `ESPACE` : Démarrer/Arrêter l'enregistrement
+- `Q` : Quitter et exporter la vidéo
+- `ESC` : Annuler et quitter sans sauvegarder
+
+**Caractéristiques :**
+- Fenêtre toujours au-dessus des autres applications
+- Enregistrement d'une région sélectionnée de l'écran
+- Démarrage et arrêt de l'enregistrement à la demande
+- Export automatique en format MP4
+- Compteur de frames et durée en temps réel
+- Indicateur visuel d'enregistrement (point rouge "REC")
+
+### Extracteur de Frames Vidéo
 
 Extrayez des frames individuelles à partir d'un fichier vidéo :
 
@@ -142,9 +173,12 @@ tracking/
 ├── requirements.txt             # Dépendances Python
 ├── cup_tracker.py              # Tracker standard
 ├── advanced_tracker.py         # Tracker avancé avec optical flow
+├── screen_recorder.py          # Enregistreur d'écran avec export MP4
+├── screen_recorder_demo.py     # Démo de l'enregistreur
 ├── video_to_images.py          # Extracteur de frames vidéo
 ├── video_to_images_demo.py     # Démo de l'extracteur
 ├── test_tracker.py             # Tests du tracker
+├── test_screen_recorder.py     # Tests de l'enregistreur
 └── test_video_to_images.py     # Tests de l'extracteur
 ```
 
@@ -172,6 +206,38 @@ self.position_history = {0: deque(maxlen=50), ...}  # Changez 50
 
 # Fréquence de re-détection
 if self.frame_count % 10 == 1:  # Re-détecte tous les 10 frames
+```
+
+## 🎥 Enregistreur d'Écran
+
+L'outil `screen_recorder.py` permet d'enregistrer une région sélectionnée de l'écran et d'exporter en vidéo MP4. C'est utile pour :
+- Enregistrer des parties du jeu des 3 gobelets pour analyse ultérieure
+- Créer des tutoriels et démonstrations
+- Capturer des bugs ou comportements spécifiques
+- Documenter les performances du système de tracking
+
+### Fonctionnalités
+
+- **Sélection de région** : Sélectionnez interactivement la zone à enregistrer
+- **Contrôle d'enregistrement** : Démarrer/arrêter à tout moment avec ESPACE
+- **Export MP4** : Vidéo au format MP4 prête à partager
+- **Fenêtre toujours visible** : La fenêtre reste au-dessus des autres applications
+- **FPS personnalisable** : Configurez la qualité et la fluidité (défaut: 30 FPS)
+- **Indicateurs visuels** : Point rouge REC, compteur de frames et durée
+- **Annulation possible** : Option pour quitter sans sauvegarder (ESC)
+
+### Exemples d'utilisation
+
+```bash
+# Enregistrer une session de jeu
+python screen_recorder.py -o ma_session.mp4
+
+# Enregistrement haute qualité à 60 FPS
+python screen_recorder.py --fps 60 -o demo_hq.mp4
+
+# Tester avec la démo animée
+python screen_recorder_demo.py  # Dans un terminal
+python screen_recorder.py       # Dans un autre terminal, sélectionnez la fenêtre de démo
 ```
 
 ## 🎬 Extracteur de Frames Vidéo
@@ -225,6 +291,13 @@ python video_to_images.py game.mp4 --start 100 --end 300
 - Réduisez la taille de la région de capture
 - Augmentez l'intervalle de re-détection dans advanced_tracker.py
 - Fermez les autres applications gourmandes en ressources
+
+### Problèmes d'enregistrement d'écran
+
+- **Vidéo vide ou corrompue** : Assurez-vous d'enregistrer au moins quelques secondes avant d'arrêter
+- **Fenêtre ne reste pas au-dessus** : Vérifiez que votre gestionnaire de fenêtres supporte la propriété "always on top"
+- **FPS trop bas** : Réduisez la taille de la région ou le FPS cible
+- **Fichier trop volumineux** : Utilisez un FPS plus bas (ex: 15 ou 20 au lieu de 30)
 
 ## 🎥 Exemple d'utilisation
 
