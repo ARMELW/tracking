@@ -73,8 +73,8 @@ def run_demo():
     print("=" * 70)
     print()
     
-    # Create temporary directory for demo
-    demo_dir = "/tmp/video_to_images_demo"
+    # Create temporary directory for demo (cross-platform)
+    demo_dir = os.path.join(tempfile.gettempdir(), "video_to_images_demo")
     os.makedirs(demo_dir, exist_ok=True)
     
     # Create demo video

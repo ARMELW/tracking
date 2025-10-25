@@ -9,7 +9,7 @@ import os
 import argparse
 import sys
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List
 
 
 class VideoToImages:
@@ -170,7 +170,7 @@ class VideoToImages:
         try:
             for frame_num in sorted(frame_numbers):
                 if frame_num >= total_frames:
-                    print(f"Warning: Frame {frame_num} exceeds video length")
+                    print(f"Warning: Frame {frame_num} exceeds video length ({total_frames} frames)")
                     continue
                 
                 # Seek to frame
