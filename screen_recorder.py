@@ -221,7 +221,13 @@ class ScreenRecorder:
             cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
             cv2.setWindowProperty(window_name, cv2.WND_PROP_TOPMOST, 1)
             
+            # Calculate wait time for cv2.waitKey based on FPS
+            wait_time = int(1000.0 / self.fps)  # milliseconds
+            
             while True:
+                # Track timing for accurate frame rate
+                loop_start = time.time()
+                
                 # Capture frame
                 frame = self.capture_frame()
                 
@@ -235,8 +241,8 @@ class ScreenRecorder:
                 # Display
                 cv2.imshow(window_name, annotated)
                 
-                # Handle keyboard input (check more frequently for responsiveness)
-                key = cv2.waitKey(1) & 0xFF
+                # Handle keyboard input with frame-rate-appropriate timeout
+                key = cv2.waitKey(wait_time) & 0xFF
                 
                 if key == ord('q'):
                     # Stop recording if active and quit
@@ -262,9 +268,6 @@ class ScreenRecorder:
                         self.stop_recording()
                     else:
                         self.start_recording()
-                
-                # Small delay to maintain frame rate
-                time.sleep(1.0 / self.fps)
                 
         except KeyboardInterrupt:
             print("\nInterrupted by user")
