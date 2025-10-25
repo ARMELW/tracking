@@ -38,6 +38,33 @@ pip install -r requirements.txt
 
 ## 💻 Utilisation
 
+### Extracteur de Frames Vidéo (Nouveau!)
+
+Extrayez des frames individuelles à partir d'un fichier vidéo :
+
+```bash
+# Extraire tous les frames d'une vidéo
+python video_to_images.py video.mp4
+
+# Extraire avec un dossier de sortie spécifique
+python video_to_images.py video.mp4 -o mes_frames/
+
+# Extraire un frame sur 5 au format JPG
+python video_to_images.py video.mp4 --step 5 --format jpg
+
+# Extraire les frames 100 à 200
+python video_to_images.py video.mp4 --start 100 --end 200
+
+# Extraire les 50 premiers frames seulement
+python video_to_images.py video.mp4 --max 50
+
+# Extraire des frames spécifiques
+python video_to_images.py video.mp4 --frames 0 10 20 30 40
+
+# Exécuter une démo
+python video_to_images_demo.py
+```
+
 ### Version Standard
 
 ```bash
@@ -111,10 +138,14 @@ Le système prédit la position de la balle en :
 
 ```
 tracking/
-├── README.md                 # Documentation
-├── requirements.txt          # Dépendances Python
-├── cup_tracker.py           # Tracker standard
-└── advanced_tracker.py      # Tracker avancé avec optical flow
+├── README.md                    # Documentation
+├── requirements.txt             # Dépendances Python
+├── cup_tracker.py              # Tracker standard
+├── advanced_tracker.py         # Tracker avancé avec optical flow
+├── video_to_images.py          # Extracteur de frames vidéo
+├── video_to_images_demo.py     # Démo de l'extracteur
+├── test_tracker.py             # Tests du tracker
+└── test_video_to_images.py     # Tests de l'extracteur
 ```
 
 ## 🔧 Configuration
@@ -141,6 +172,37 @@ self.position_history = {0: deque(maxlen=50), ...}  # Changez 50
 
 # Fréquence de re-détection
 if self.frame_count % 10 == 1:  # Re-détecte tous les 10 frames
+```
+
+## 🎬 Extracteur de Frames Vidéo
+
+L'outil `video_to_images.py` permet d'extraire des frames individuelles à partir de fichiers vidéo. C'est utile pour :
+- Analyser des vidéos du jeu des 3 gobelets frame par frame
+- Préparer des données d'entraînement pour l'apprentissage machine
+- Créer des captures d'écran à partir de vidéos
+- Déboguer et améliorer les algorithmes de tracking
+
+### Fonctionnalités
+
+- **Extraction complète** : Tous les frames d'une vidéo
+- **Extraction par pas** : Un frame sur N (ex: 1 sur 5)
+- **Extraction par plage** : Frames entre deux indices
+- **Frames spécifiques** : Liste de numéros de frames précis
+- **Limite de frames** : Nombre maximum de frames à extraire
+- **Formats supportés** : PNG (par défaut) ou JPG
+- **Vidéos supportées** : MP4, AVI, MOV, et autres formats OpenCV
+
+### Exemples d'utilisation
+
+```bash
+# Analyser une vidéo du jeu des 3 gobelets
+python video_to_images.py cup_game.mp4 -o analysis_frames/
+
+# Créer un GIF animé (extraire 1 frame sur 3)
+python video_to_images.py video.mp4 --step 3 --format jpg
+
+# Analyser seulement le moment du mélange (frames 100-300)
+python video_to_images.py game.mp4 --start 100 --end 300
 ```
 
 ## 🐛 Dépannage
