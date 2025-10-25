@@ -141,10 +141,25 @@ Pour un guide visuel, consultez la vidéo liée dans l'issue.
 
 ## Next Steps / Prochaines Étapes
 
+### For Cup Tracking
 - Read the full [README.md](README.md) for detailed documentation
 - Check [USAGE_EXAMPLES.md](USAGE_EXAMPLES.md) for advanced usage
 - Run tests: `python3 test_tracker.py`
 
+### For Video Frame Extraction (NEW!)
+- Extract frames from video files: `python3 video_to_images.py video.mp4`
+- Run the demo: `python3 video_to_images_demo.py`
+- Run tests: `python3 test_video_to_images.py`
+- See examples in [USAGE_EXAMPLES.md](USAGE_EXAMPLES.md)
+
+---
+
 - Lisez le [README.md](README.md) complet pour la documentation détaillée
 - Consultez [USAGE_EXAMPLES.md](USAGE_EXAMPLES.md) pour l'utilisation avancée
 - Lancez les tests: `python3 test_tracker.py`
+
+### Pour l'Extraction de Frames Vidéo (NOUVEAU!)
+- Extraire des frames: `python3 video_to_images.py video.mp4`
+- Lancer la démo: `python3 video_to_images_demo.py`
+- Lancer les tests: `python3 test_video_to_images.py`
+- Voir les exemples dans [USAGE_EXAMPLES.md](USAGE_EXAMPLES.md)

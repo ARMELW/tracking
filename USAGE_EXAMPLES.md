@@ -147,6 +147,128 @@ with open("/tmp/tracking_data.json", "w") as f:
 print("Tracking data saved to /tmp/tracking_data.json")
 ```
 
+## Example 7: Video to Images - Extract All Frames / Extraire Tous les Frames
+
+```python
+from video_to_images import VideoToImages
+
+# Extract all frames from a video
+converter = VideoToImages("cup_game.mp4", output_dir="frames/", format="png")
+num_frames = converter.extract_frames()
+
+print(f"Extracted {num_frames} frames")
+```
+
+## Example 8: Video to Images - Extract Every Nth Frame / Extraire un Frame sur N
+
+```python
+from video_to_images import VideoToImages
+
+# Extract every 5th frame as JPG
+converter = VideoToImages(
+    video_path="cup_game.mp4",
+    output_dir="frames_jpg/",
+    format="jpg",
+    prefix="cup_frame"
+)
+
+# Extract every 5th frame
+num_frames = converter.extract_frames(step=5)
+print(f"Extracted {num_frames} frames")
+```
+
+## Example 9: Video to Images - Extract Frame Range / Extraire une Plage de Frames
+
+```python
+from video_to_images import VideoToImages
+
+# Extract frames 100 to 300 (the shuffling part)
+converter = VideoToImages("cup_game.mp4", output_dir="shuffle_frames/")
+
+# Extract only the shuffling sequence
+num_frames = converter.extract_frames(start_frame=100, end_frame=300)
+print(f"Extracted {num_frames} frames from shuffling sequence")
+```
+
+## Example 10: Video to Images - Extract Specific Frames / Extraire des Frames Spécifiques
+
+```python
+from video_to_images import VideoToImages
+
+# Extract specific key frames
+converter = VideoToImages("cup_game.mp4", output_dir="key_frames/")
+
+# Extract frames at specific timestamps
+key_frames = [0, 30, 60, 90, 120, 150]  # Every 1 second at 30 FPS
+num_frames = converter.extract_specific_frames(key_frames)
+print(f"Extracted {num_frames} key frames")
+```
+
+## Example 11: Video to Images - Command Line Usage / Utilisation en Ligne de Commande
+
+```bash
+# Extract all frames
+python video_to_images.py video.mp4
+
+# Custom output directory
+python video_to_images.py video.mp4 -o my_frames/
+
+# Extract every 10th frame as JPG
+python video_to_images.py video.mp4 --step 10 --format jpg
+
+# Extract first 100 frames
+python video_to_images.py video.mp4 --max 100
+
+# Extract frames 50-150
+python video_to_images.py video.mp4 --start 50 --end 150
+
+# Extract specific frames
+python video_to_images.py video.mp4 --frames 0 15 30 45 60
+
+# Run demo
+python video_to_images_demo.py
+```
+
+## Example 12: Analyze Cup Game Video Frame by Frame / Analyser une Vidéo Frame par Frame
+
+```python
+from video_to_images import VideoToImages
+from cup_tracker import CupTracker
+import cv2
+import os
+
+# Step 1: Extract frames from video
+print("Step 1: Extracting frames...")
+converter = VideoToImages("cup_game_video.mp4", output_dir="game_frames/")
+num_frames = converter.extract_frames()
+
+# Step 2: Analyze each frame with the tracker
+print("Step 2: Analyzing frames...")
+tracker = CupTracker(screen_region={"top": 0, "left": 0, "width": 640, "height": 480})
+tracker.last_known_ball_position = 0  # Ball starts under cup 1
+
+analysis_dir = "analyzed_frames/"
+os.makedirs(analysis_dir, exist_ok=True)
+
+frame_files = sorted([f for f in os.listdir("game_frames/") if f.endswith('.png')])
+
+for i, frame_file in enumerate(frame_files):
+    # Load frame
+    frame = cv2.imread(os.path.join("game_frames/", frame_file))
+    
+    # Analyze with tracker
+    annotated = tracker.annotate_frame(frame)
+    
+    # Save annotated frame
+    output_path = os.path.join(analysis_dir, f"analyzed_{frame_file}")
+    cv2.imwrite(output_path, annotated)
+    
+    if (i + 1) % 10 == 0:
+        print(f"Analyzed {i + 1}/{len(frame_files)} frames...")
+
+print(f"\nAnalysis complete! Check {analysis_dir}/ for annotated frames")
+```
+
 ## Tips for Best Results / Conseils pour Meilleurs Résultats
 
 ### 1. Screen Capture Setup / Configuration de Capture d'Écran
