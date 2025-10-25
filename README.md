@@ -1,6 +1,6 @@
-# Cup Tracking System - 3 Cup Shell Game Tracker
+# Object Tracking System - YOLO + ByteTrack/BoT-SORT
 
-Un programme Python de vision par ordinateur pour suivre et prédire la position de la balle dans le jeu des 3 gobelets (shell game).
+Un programme Python de vision par ordinateur avancé pour suivre et détecter des objets en temps réel avec YOLO et des algorithmes de tracking professionnels (ByteTrack/BoT-SORT).
 
 ## 📚 Documentation Rapide / Quick Links
 
@@ -10,6 +10,15 @@ Un programme Python de vision par ordinateur pour suivre et prédire la position
 
 ## 🎯 Fonctionnalités
 
+### 🆕 Nouveau : YOLO + ByteTrack/BoT-SORT Tracking
+- **Détection YOLO** : Utilise les derniers modèles YOLO (YOLOv11) pour une détection d'objets robuste
+- **ByteTrack/BoT-SORT** : Algorithmes de tracking professionnels pour un suivi précis
+- **Multi-objets** : Détecte et suit plusieurs objets simultanément avec IDs uniques
+- **Sélection de zone** : Capture une région spécifique de l'écran pour le tracking
+- **Trajectoires visuelles** : Affiche l'historique de mouvement de chaque objet
+- **Marquage d'objets** : Cliquez sur un objet pour le suivre spécifiquement
+
+### Fonctionnalités originales (Cup Tracking)
 - **Capture d'écran en temps réel** : Capture une région spécifique de l'écran
 - **Détection des gobelets** : Détection automatique des 3 gobelets
 - **Numérotation automatique** : Chaque gobelet est numéroté (1, 2, 3)
@@ -38,7 +47,38 @@ pip install -r requirements.txt
 
 ## 💻 Utilisation
 
-### Version Standard
+### 🆕 YOLO Object Tracker (Recommandé)
+
+**Tracking avec ByteTrack (par défaut) :**
+```bash
+python yolo_tracker.py
+```
+
+**Tracking avec BoT-SORT :**
+```bash
+python yolo_tracker.py --tracker botsort
+```
+
+**Options avancées :**
+```bash
+# Utiliser un modèle YOLO plus précis
+python yolo_tracker.py --model yolo11m.pt --tracker bytetrack
+
+# Ajuster les seuils de détection
+python yolo_tracker.py --conf 0.3 --iou 0.5
+
+# Voir toutes les options
+python yolo_tracker.py --help
+```
+
+**Modèles YOLO disponibles :**
+- `yolo11n.pt` - Nano (plus rapide, moins précis)
+- `yolo11s.pt` - Small
+- `yolo11m.pt` - Medium
+- `yolo11l.pt` - Large
+- `yolo11x.pt` - Extra Large (plus lent, très précis)
+
+### Version Standard (Cup Tracking)
 
 ```bash
 python cup_tracker.py
@@ -51,6 +91,25 @@ python advanced_tracker.py
 ```
 
 ### Étapes d'utilisation :
+
+#### 🆕 YOLO Tracker
+
+1. **Sélection de la région** : Au démarrage, sélectionnez la zone de l'écran à tracker
+   - Cliquez et glissez pour créer un rectangle
+   - Appuyez sur ENTRÉE pour confirmer
+   - Appuyez sur ESC pour annuler
+
+2. **Marquage d'un objet** :
+   - Cliquez sur n'importe quel objet détecté pour le marquer
+   - L'objet sera mis en surbrillance et suivi spécifiquement
+   - Les trajectoires de tous les objets sont affichées en temps réel
+
+3. **Contrôles** :
+   - `Click` : Marquer un objet pour suivi spécifique
+   - `R` : Réinitialiser le marquage
+   - `Q` : Quitter l'application
+
+#### Cup Tracker (Original)
 
 1. **Sélection de la région** : Au démarrage, sélectionnez la zone de l'écran contenant les gobelets
    - Cliquez et glissez pour créer un rectangle
@@ -79,14 +138,33 @@ https://github.com/user-attachments/assets/1f9d1d2c-efec-4073-b17b-f29ff46973be
 
 ## 🎮 Comment ça marche
 
-### Détection des gobelets
+### 🆕 YOLO + ByteTrack/BoT-SORT Tracking
+
+Le nouveau système YOLO utilise des technologies de pointe :
+
+1. **Détection YOLO** :
+   - Utilise les modèles YOLOv11 pré-entraînés
+   - Détecte automatiquement 80 classes d'objets (personnes, véhicules, animaux, etc.)
+   - Haute précision et vitesse de détection
+
+2. **ByteTrack/BoT-SORT** :
+   - Algorithmes de tracking professionnels utilisés dans la compétition
+   - Assignation d'IDs uniques à chaque objet détecté
+   - Suivi robuste même avec occlusions partielles
+   - Re-identification automatique après disparition temporaire
+
+3. **Sélection de zone** :
+   - Capture uniquement la zone d'intérêt pour optimiser les performances
+   - Fonctionne avec n'importe quelle application ou jeu à l'écran
+
+### Détection des gobelets (Original)
 
 Le système utilise plusieurs techniques de vision par ordinateur :
 - **Détection de contours** : Identifie les formes des gobelets
 - **Filtrage par taille et ratio** : Élimine les faux positifs
 - **Tri spatial** : Ordonne les gobelets de gauche à droite
 
-### Tracking
+### Tracking (Original)
 
 Deux méthodes de tracking sont disponibles :
 
@@ -113,7 +191,11 @@ Le système prédit la position de la balle en :
 tracking/
 ├── README.md                 # Documentation
 ├── requirements.txt          # Dépendances Python
-├── cup_tracker.py           # Tracker standard
+├── yolo_tracker.py           # 🆕 YOLO + ByteTrack/BoT-SORT tracker (recommandé)
+├── cup_tracker.py            # Tracker standard
+├── advanced_tracker.py       # Tracker avancé avec optical flow
+├── test_yolo_tracker.py      # Tests pour YOLO tracker
+└── test_tracker.py           # Tests pour trackers originaux
 └── advanced_tracker.py      # Tracker avancé avec optical flow
 ```
 

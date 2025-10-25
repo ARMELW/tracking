@@ -39,3 +39,13 @@ Thumbs.db
 # Temporary files
 /tmp/
 *.tmp
+
+# YOLO models
+*.pt
+*.pth
+*.onnx
+*.engine
+*.torchscript
+
+# Ultralytics settings
+.config/Ultralytics/
